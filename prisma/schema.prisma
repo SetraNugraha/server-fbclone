@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id         Int        @id @default(autoincrement())
+  first_name String
+  surname    String
+  email      String     @unique
+  password   String
+  birthday   String
+  gender     gender
+  profile_image String?
+  refresh_token String? @db.Text
+  created_at DateTime @default(now())
+  update_at DateTime?
+
+  // Relation
+  post       Posts[]    @relation("UserPost")
+  comment    Comments[] @relation("UserComment")
+  like       Likes[] @relation("UserLike")
+}
+
+model Posts {
+  id      Int        @id @default(autoincrement())
+  user_id Int
+  body    String @db.Text
+  post_image   String?
+  created_at DateTime @default(now())
+  update_at DateTime?
+
+  // Relation
+  user    Users      @relation("UserPost", fields: [user_id], references: [id], onDelete: Cascade)
+  comment Comments[] @relation("PostComment")
+  like    Likes[] @relation("PostLike")
+}
+
+model Comments {
+  id      Int    @id @default(autoincrement())
+  user_id Int
+  post_id Int
+  body    String @db.Text
+  created_at DateTime @default(now())
+  update_at DateTime?
+
+  // Relation
+  post    Posts  @relation("PostComment", fields: [post_id], references: [id], onDelete: Cascade)
+  user    Users  @relation("UserComment", fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Likes {
+  id  Int    @id @default(autoincrement())
+  post_id Int
+  user_id Int
+
+  // Relation
+  post    Posts  @relation("PostLike", fields: [post_id], references: [id], onDelete: Cascade)
+  user    Users  @relation("UserLike", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([post_id, user_id])
+}
+
+enum gender {
+  male
+  female
+}
