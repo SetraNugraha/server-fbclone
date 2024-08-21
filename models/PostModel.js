@@ -2,8 +2,6 @@ import prisma from '../config/database.js'
 import fs from 'fs'
 import path from 'path'
 
-const BASE_PATH = process.env.BASE_PATH
-
 const getAllPost = async () => {
   const allPost = await prisma.posts.findMany({
     orderBy: {
@@ -88,7 +86,7 @@ const getAllPostByUserId = async (userId) => {
 const unlinkPostImage = async (post_image) => {
   if (post_image) {
     // Define the full path to the image file
-    const imagePath = path.join(BASE_PATH, 'public', 'img', 'post_images', post_image)
+    const imagePath = path.join(__dirname, 'public', 'img', 'post_images', post_image)
 
     // Delete the image file from the filesystem
     await new Promise((resolve, reject) => {

@@ -2,8 +2,6 @@ import prisma from '../config/database.js'
 import fs from 'fs'
 import path from 'path'
 
-const BASE_PATH = process.env.BASE_PATH
-
 const getAllUsers = async () => {
   const users = await prisma.users.findMany({
     select: {
@@ -61,7 +59,7 @@ const getUserByToken = async (token) => {
 const unlinkProfileImage = async (profile_image) => {
   if (profile_image) {
     // Define the full path to the image file
-    const imagePath = path.join(BASE_PATH, 'public', 'img', 'profile_images', profile_image)
+    const imagePath = path.join(__dirname, 'public', 'img', 'profile_images', profile_image)
 
     // Delete the image file from the filesystem
     await new Promise((resolve, reject) => {
