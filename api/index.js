@@ -17,3 +17,5 @@ app.use('/img/profile_images', express.static('public/img/profile_images'))
 app.get('/test', (req, res) => {
   res.send('Test endpoint is working')
 })
+
+export default app
