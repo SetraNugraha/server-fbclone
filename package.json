@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "node index.js",
     "build": "prisma generate && npm run server",
     "vercel-build": "prisma generate && npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
