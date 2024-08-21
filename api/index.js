@@ -14,9 +14,4 @@ app.use(router)
 app.use('/img/post_images', express.static('public/img/post_images'))
 app.use('/img/profile_images', express.static('public/img/profile_images'))
 
-const port = process.env.PORT
-app.listen(port, () => {
-    console.log(`Server Running on port: ${port}`)
-})
-
 export default app
