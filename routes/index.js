@@ -22,7 +22,7 @@ router.put('/users/:id', verifyToken, profileImageUpload.single('profile_image')
 router.delete('/users/:id', verifyToken, UserController.deleteProfileImage)
 
 //! Posts
-router.get('/posts', PostController.getAllPost)
+router.get('/api/posts', PostController.getAllPost)
 router.get('/posts/:userId', PostController.getAllPostByUserId)
 router.post('/posts', verifyToken, postImageUpload.single('post_image'), PostController.createPost)
 router.delete('/posts/:postId/:userId', verifyToken, PostController.deletePost)
