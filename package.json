@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "server": "node index.js",
-    "build": "prisma generate && npm run server",
-    "vercel-build": "prisma generate && npm run server",
+    "build": "prisma generate ",
+    "vercel-build": "prisma generate ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
