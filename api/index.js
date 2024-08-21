@@ -14,3 +14,6 @@ app.use(router)
 app.use('/img/post_images', express.static('public/img/post_images'))
 app.use('/img/profile_images', express.static('public/img/profile_images'))
 
+app.get('/test', (req, res) => {
+  res.send('Test endpoint is working')
+})
