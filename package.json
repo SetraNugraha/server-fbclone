@@ -7,7 +7,7 @@
   "scripts": {
     "build": "prisma generate && npm run server",
     "vercel-build": "prisma generate && npm run server",
-    "server": "nodemon index.js",
+    "server": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
