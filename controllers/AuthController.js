@@ -76,6 +76,7 @@ const login = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // Hour * minute * second * mili second = 1 Day
     })
 
