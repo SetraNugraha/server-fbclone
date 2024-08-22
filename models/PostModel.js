@@ -34,10 +34,6 @@ const getAllPost = async () => {
     },
   })
 
-  if (!allPost) {
-    throw Error('Post Not Found !')
-  }
-
   return allPost
 }
 
@@ -75,10 +71,6 @@ const getAllPostByUserId = async (userId) => {
       like: true,
     },
   })
-
-  if (!allPostByUserId) {
-    throw Error('Post Not Found !')
-  }
 
   return allPostByUserId
 }
