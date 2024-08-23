@@ -10,9 +10,8 @@ const app = express()
 app.use(
   cors({
     origin: 'https://client-fbclone.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }),
 )
 app.use(cookieParser())
