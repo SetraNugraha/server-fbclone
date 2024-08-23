@@ -16,7 +16,7 @@ app.use(
 app.use(cookieParser())
 app.use(express.json())
 app.use(router)
-app.use('/img/post_images', express.static('public/img/post_images'))
-app.use('/img/profile_images', express.static('public/img/profile_images'))
+// app.use('/img/post_images', express.static('public/img/post_images'))
+// app.use('/img/profile_images', express.static('public/img/profile_images'))
 
 export default app

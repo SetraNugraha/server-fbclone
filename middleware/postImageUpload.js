@@ -1,22 +1,28 @@
 import multer from 'multer'
 import path from 'path'
+import cloudinary from 'cloudinary'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/img/post_images')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname))
-  },
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpg', 'image/jpeg', 'image/png']
-  if (!allowedTypes.includes(file.mimetype)) {
-    return cb(new Error('Invalid file type. Only JPG, JPEG and PNG are allowed.'))
-  }
-  cb(null, true)
-}
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'post_images',
+    format: async (req, file) => {
+      const ext = path.extname(file.originalname).slice(1).toLowerCase() // Mendapatkan ekstensi tanpa titik
+      if (['jpg', 'jpeg', 'png'].includes(ext)) {
+        return ext
+      }
+      return 'jpeg' // Default format jika format tidak didukung
+    },
+    public_id: (req, file) => Date.now() + path.extname(file.originalname),
+  },
+})
 
 export const postImageUpload = multer({
   storage: storage,
