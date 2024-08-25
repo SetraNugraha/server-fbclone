@@ -1,15 +1,5 @@
 import prisma from '../config/database.js'
 
-const getAllLike = async () => {
-  const allLike = await prisma.likes.findMany()
-
-  if (!allLike) {
-    throw Error('Like Not Found !')
-  }
-
-  return allLike
-}
-
 const createLike = async (postId, userId) => {
   const existingLike = await prisma.likes.findFirst({
     where: {
@@ -54,7 +44,6 @@ const deleteLike = async (postId, userId) => {
 }
 
 export default {
-  getAllLike,
   createLike,
   deleteLike,
 }

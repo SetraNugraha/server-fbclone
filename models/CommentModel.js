@@ -1,28 +1,19 @@
 import prisma from '../config/database.js'
 
-const getAllComments = async () => {
-  const allComments = await prisma.comments.findMany()
-
-  if (!allComments) {
-    throw Error('Comments Not Found !')
-  }
-
-  return allComments
-}
-
-const getAllCommentsByPostId = async (postId) => {
-  const commentsByPostId = await prisma.comments.findMany({
-    where: {
-      post_id: postId,
-    },
+const getComments = async (filter = {}) => {
+  const comments = await prisma.comments.findMany({
+    where: filter,
   })
 
-  if (!commentsByPostId) {
+  if (!comments) {
     throw Error('Comments Not Found !')
   }
 
-  return commentsByPostId
+  return comments
 }
+
+const getAllComments = () => getComments()
+const getAllCommentsByPostId = (postId) => getComments({ post_id: postId })
 
 const createCommentByPostId = async (data) => {
   const createNewComment = await prisma.comments.create({

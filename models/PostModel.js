@@ -2,11 +2,12 @@ import prisma from '../config/database.js'
 import fs from 'fs'
 import path from 'path'
 
-const getAllPost = async () => {
-  const allPost = await prisma.posts.findMany({
+const getPosts = async (filter = {}) => {
+  const Posts = await prisma.posts.findMany({
     orderBy: {
       created_at: 'desc',
     },
+    where: filter,
     include: {
       user: {
         select: {
@@ -34,46 +35,11 @@ const getAllPost = async () => {
     },
   })
 
-  return allPost
+  return Posts
 }
 
-const getAllPostByUserId = async (userId) => {
-  const allPostByUserId = await prisma.posts.findMany({
-    orderBy: {
-      created_at: 'desc',
-    },
-    where: {
-      user_id: userId,
-    },
-    include: {
-      user: {
-        select: {
-          id: true,
-          first_name: true,
-          surname: true,
-          profile_image: true,
-        },
-      },
-      comment: {
-        select: {
-          body: true,
-          created_at: true,
-          user: {
-            select: {
-              id: true,
-              first_name: true,
-              surname: true,
-              profile_image: true,
-            },
-          },
-        },
-      },
-      like: true,
-    },
-  })
-
-  return allPostByUserId
-}
+const getAllPost = () => getPosts()
+const getAllPostByUserId = (userId) => getPosts({ user_id: userId })
 
 const unlinkPostImage = async (post_image) => {
   if (post_image) {
