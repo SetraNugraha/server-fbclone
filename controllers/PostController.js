@@ -40,7 +40,7 @@ const getAllPostByUserId = async (req, res) => {
 const createPost = async (req, res) => {
   const newDataPost = req.body
   newDataPost.user_id = parseInt(newDataPost.user_id)
-  const post_image = req.file ? req.file.path : null
+  const post_image = req.file ? req.file.url : null
   try {
     const newPost = await PostModel.createPost({ ...newDataPost, post_image: post_image })
     res.json({
